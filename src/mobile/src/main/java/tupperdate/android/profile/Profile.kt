@@ -9,6 +9,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,8 +31,8 @@ fun Profile(
     onEditClick: () -> Unit,
     onSaveClick: () -> Unit,
     onSignOutClick: () -> Unit,
-    onFirstNameChanged: () -> Unit,
-    onEmailChanged: () -> Unit,
+    onFirstNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
     userImageUrl: String,
     firstName: String,
     email: String,
@@ -130,16 +132,18 @@ fun Profile(
 @Preview
 @Composable
 private fun ProfilePreview() {
+    val (name, setName)= remember { mutableStateOf("Thor") }
+    val (email, setEmail)= remember { mutableStateOf("thor@asgard.god") }
     TupperdateTheme {
         Profile(
             onCloseClick = {},
             onEditClick = {},
             onSaveClick = {},
             onSignOutClick = {},
-            onFirstNameChanged = {},
-            onEmailChanged = {},
-            firstName = "Thor",
-            email = "thor@asgard.god",
+            onFirstNameChanged = setName,
+            onEmailChanged = setEmail,
+            firstName = name,
+            email = email,
             userImageUrl = "https://images.firstpost.com/wp-content/uploads/2019/04/thor380.jpg"
         )
     }
